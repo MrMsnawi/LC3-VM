@@ -34,16 +34,10 @@ make
 
 ## Run
 
-Run with one or more LC-3 object files:
+Run with one LC-3 object file:
 
 ```bash
 ./lc3-vm programs/2048.obj
-```
-
-or
-
-```bash
-./lc3-vm <image1.obj> [image2.obj ...]
 ```
 
 ## Makefile Targets
