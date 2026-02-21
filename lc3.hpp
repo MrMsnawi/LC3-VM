@@ -4,6 +4,13 @@
 #include <cstdint>
 #include <cstdio>
 #include <cstring>
+#include <signal.h>
+#include <unistd.h>
+#include <fcntl.h>
+#include <sys/time.h>
+#include <sys/types.h>
+#include <sys/termios.h>
+#include <sys/mman.h>
 
 typedef uint16_t i16;
 
