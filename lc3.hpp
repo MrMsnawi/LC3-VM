@@ -12,7 +12,7 @@
 #include <sys/termios.h>
 #include <sys/mman.h>
 
-typedef uint16_t i16;
+typedef uint16_t u16;
 
 #define MEMORY_MAX (1 << 16)
 
@@ -62,24 +62,24 @@ enum {
 
 class LC3 {
 private:
-	i16 reg[R_COUNT];
-	i16 memory[MEMORY_MAX];
+	u16 reg[R_COUNT];
+	u16 memory[MEMORY_MAX];
 	int running;
 	bool input_buffering_enabled;
 
-	i16     mem_read(i16 address);
-	void    mem_write(i16 address, i16 val);
+	u16     mem_read(u16 address);
+	void    mem_write(u16 address, u16 val);
 	void    disable_input_buffering();
 	void    restore_input_buffering();
-	i16     check_key();
+	u16     check_key();
 
 public:
 	LC3();
 	~LC3();
 	bool	load_image(const char* image_path);
 	void    run();
-	i16     sign_extend(i16 x, int bit_count);
-	void    update_flags(i16 r);
+	u16     sign_extend(u16 x, int bit_count);
+	void    update_flags(u16 r);
 };
 
 #endif
