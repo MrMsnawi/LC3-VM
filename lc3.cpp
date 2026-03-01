@@ -2,6 +2,15 @@
 
 struct termios original_tio;
 
+namespace {
+volatile sig_atomic_t g_interrupt_requested = 0;
+
+    void handle_sigint(int)
+    {
+        g_interrupt_requested = 1;
+    }
+}
+
 LC3::LC3()
 {
     running = 0;
@@ -130,11 +139,27 @@ void LC3::update_flags(u16 r)
 
 void LC3::run()
 {
+    struct sigaction new_action;
+    std::memset(&new_action, 0, sizeof(new_action));
+    new_action.sa_handler = handle_sigint;
+    sigemptyset(&new_action.sa_mask);
+    new_action.sa_flags = 0;
+
+    struct sigaction old_action;
+    sigaction(SIGINT, &new_action, &old_action);
+
+    g_interrupt_requested = 0;
     running = 1;
     disable_input_buffering();
 
     while (running)
     {
+        if (g_interrupt_requested)
+        {
+            running = 0;
+            break;
+        }
+
         // Fetch
         u16 instr = mem_read(reg[R_PC]++);
 
@@ -327,4 +352,11 @@ void LC3::run()
     }
 
     restore_input_buffering();
+    sigaction(SIGINT, &old_action, NULL);
+
+    if (g_interrupt_requested)
+    {
+        putchar('\n');
+        fflush(stdout);
+    }
 }
