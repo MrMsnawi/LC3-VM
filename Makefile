@@ -4,8 +4,6 @@ TARGET = lc3-vm
 SRCS = main.cpp lc3.cpp
 OBJS = $(SRCS:.cpp=.o)
 
-.PHONY: all clean fclean re run
-
 all: $(TARGET)
 
 $(TARGET): $(OBJS)
@@ -24,3 +22,5 @@ re: fclean all
 
 run: $(TARGET)
 	./$(TARGET)
+
+.PHONY: all clean fclean re run
