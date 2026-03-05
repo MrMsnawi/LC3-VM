@@ -10,7 +10,7 @@
 #include <sys/types.h>
 #include <sys/termios.h>
 
-typedef uint16_t u16;
+using u16 = uint16_t;
 
 #define MEMORY_MAX (1 << 16)
 
