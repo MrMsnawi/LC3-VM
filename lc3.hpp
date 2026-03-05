@@ -12,7 +12,7 @@
 
 using u16 = uint16_t;
 
-#define MEMORY_MAX (1 << 16)
+constexpr size_t MEMORY_MAX = 1 << 16;
 
 enum {
 	MR_KBSR = 0xFE00,  // Keyboard status register
