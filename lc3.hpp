@@ -70,14 +70,14 @@ private:
 	void    disable_input_buffering();
 	void    restore_input_buffering();
 	u16     check_key();
+	u16     sign_extend(u16 x, int bit_count);
+	void    update_flags(u16 r);
 
 public:
 	LC3();
 	~LC3();
 	bool	load_image(const char* image_path);
 	void    run();
-	u16     sign_extend(u16 x, int bit_count);
-	void    update_flags(u16 r);
 };
 
 #endif
