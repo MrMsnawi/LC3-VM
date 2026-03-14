@@ -39,7 +39,7 @@ void LC3::disable_input_buffering()
 	}
 
 	struct termios new_tio = original_tio;
-	new_tio.c_lflag &= (~ICANON | ~ECHO);
+	new_tio.c_lflag &= ~(ICANON | ECHO);
 	if (tcsetattr(STDIN_FILENO, TCSANOW, &new_tio) == 0)
 	{
 		input_buffering_enabled = true;
